@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux anniversaire Mattéo 💖</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background-color: #ffe6e6; }
+        .room { width: 600px; height: 400px; background: pink; margin: 50px auto; position: relative; border: 5px solid red; }
+        .door { width: 120px; height: 190px; background-image: url('porte.png'); background-size: cover; position: absolute; right: 50px; bottom: 50px; cursor: pointer; }
+        .key { width: 80px; height: 80px; background-image: url('clé.png'); background-size: cover; position: absolute; left: 110px; top: 110px; cursor: pointer; }
+        .hidden { display: none; }
+        .note { width: 100px; height: 50px; background-image: url('note.png'); background-size: cover; position: absolute; left: 300px; top: 100px; cursor: pointer; border: 1px solid black; }
+        .coffre { width: 110px; height: 100px; background-image: url('coffre.png'); background-size: cover; position: absolute; left: 200px; bottom: 50px; cursor: pointer; }
+        .flower { width: 80px; height: 80px; background-image: url('fleur.png'); background-size: cover; position: absolute; left: 50px; bottom: 100px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Escape game</h1>
+    <p>Réponds aux questions et trouve la clé pour sortir de la pièce !</p>
+    <div class="room">
+        <div class="door" onclick="tryEscape()"></div>
+        <div class="key hidden" onclick="pickKey()"></div>
+        <div class="note" onclick="askQuestion()"></div>
+        <div class="coffre" onclick="openCoffre()"></div>
+        <div class="flower" onclick="smellFlower()"></div>
+    </div>
+    <p id="message"></p>
+    <script>
+        let hasKey = false;
+        let hasCode = false;
+        let hasFlowerHint = false;
+        
+        function pickKey() {
+            hasKey = true;
+            document.querySelector('.key').classList.add('hidden');
+            document.getElementById('message').textContent = "Tu as trouvé la clé de notre amour ! 💕";
+        }
+        
+        function tryEscape() {
+            if (hasKey) {
+                document.getElementById('message').textContent = "Bravo mon chat ! Tu as réussi à sortir et notre aventure continue ! ❤️";
+            } else {
+                document.getElementById('message').textContent = "La porte est verrouillée... Trouve la clé de mon cœur !";
+            }
+        }
+        
+        function askQuestion() {
+            let answer = prompt("La date la plus importente selon toi ? (format : JJ/MM/AAAA)");
+            if (answer === "03/12/2021") {
+                alert("Correct ! Voici un indice : le code du coffre est AUJOURD'HUI (format : JJ/MM)");
+                hasCode = true;
+            } else {
+                alert("Mmmh... Essaie encore mon loulou ! 💕");
+            }
+        }
+        
+        function openCoffre() {
+            if (hasCode) {
+                let code = prompt("Entrez le code du coffre");
+                if (code === "10/02") {
+                    alert("Bravo ! Tu as trouvé la clé de notre histoire ! 🔑💖");
+                    document.querySelector('.key').classList.remove('hidden');
+                } else {
+                    alert("Mauvais code, réessaye mon cœur !");
+                }
+            } else {
+                alert("Le coffre est verrouillé. Trouve l'indice caché dans notre amour !");
+            }
+        }
+        
+        function smellFlower() {
+            if (!hasFlowerHint) {
+                alert("Cette fleur sent comme celle de notre premier rendez-vous... Souviens-toi de cette date.");
+                hasFlowerHint = true;
+            } else {
+                alert("L'odeur est toujours aussi douce, comme toi mon amour ! 🌹");
+            }
+        }
+    </script>
+</body>
+</html>
