@@ -13,11 +13,19 @@
         .note { width: 100px; height: 50px; background-image: url('note.png'); background-size: cover; position: absolute; left: 300px; top: 100px; cursor: pointer; border: 1px solid black; }
         .coffre { width: 110px; height: 100px; background-image: url('coffre.png'); background-size: cover; position: absolute; left: 200px; bottom: 50px; cursor: pointer; }
         .flower { width: 80px; height: 80px; background-image: url('fleur.png'); background-size: cover; position: absolute; left: 50px; bottom: 100px; cursor: pointer; }
+        #surprise { display: none; width: 300px; margin-top: 20px; border-radius: 10px; }
     </style>
 </head>
 <body>
     <h1>Escape game</h1>
     <p>Réponds aux questions et trouve la clé pour sortir de la pièce !</p>
+
+    <!-- Musique de fond -->
+    <audio id="music" autoplay loop>
+        <source src="musique.mp3" type="audio/mp3">
+        Votre navigateur ne supporte pas l'audio.
+    </audio>
+
     <div class="room">
         <div class="door" onclick="tryEscape()"></div>
         <div class="key hidden" onclick="pickKey()"></div>
@@ -25,28 +33,36 @@
         <div class="coffre" onclick="openCoffre()"></div>
         <div class="flower" onclick="smellFlower()"></div>
     </div>
+
     <p id="message"></p>
+
+    <!-- Image surprise -->
+    <img id="surprise" src="surprise.jpg" alt="Surprise d'amour">
+
     <script>
         let hasKey = false;
         let hasCode = false;
         let hasFlowerHint = false;
-        
+
         function pickKey() {
             hasKey = true;
             document.querySelector('.key').classList.add('hidden');
             document.getElementById('message').textContent = "Tu as trouvé la clé de notre amour ! 💕";
         }
-        
+
         function tryEscape() {
             if (hasKey) {
                 document.getElementById('message').textContent = "Bravo mon chat ! Tu as réussi à sortir et notre aventure continue ! ❤️";
+                
+                // Affiche l'image surprise
+                document.getElementById('surprise').style.display = "block";
             } else {
                 document.getElementById('message').textContent = "La porte est verrouillée... Trouve la clé de mon cœur !";
             }
         }
-        
+
         function askQuestion() {
-            let answer = prompt("La date la plus importente selon toi ? (format : JJ/MM/AAAA)");
+            let answer = prompt("La date la plus importante selon toi ? (format : JJ/MM/AAAA)");
             if (answer === "03/12/2021") {
                 alert("Correct ! Voici un indice : le code du coffre est AUJOURD'HUI (format : JJ/MM)");
                 hasCode = true;
@@ -54,7 +70,7 @@
                 alert("Mmmh... Essaie encore mon loulou ! 💕");
             }
         }
-        
+
         function openCoffre() {
             if (hasCode) {
                 let code = prompt("Entrez le code du coffre");
@@ -68,7 +84,7 @@
                 alert("Le coffre est verrouillé. Trouve l'indice caché dans notre amour !");
             }
         }
-        
+
         function smellFlower() {
             if (!hasFlowerHint) {
                 alert("Cette fleur sent comme celle de notre premier rendez-vous... Souviens-toi de cette date.");
