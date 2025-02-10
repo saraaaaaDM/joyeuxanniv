@@ -20,8 +20,11 @@
     <h1>Escape game</h1>
     <p>Réponds aux questions et trouve la clé pour sortir de la pièce !</p>
 
+    <!-- Bouton pour activer la musique -->
+    <button onclick="playMusic()">🎵 Activer la musique</button>
+
     <!-- Musique de fond -->
-    <audio id="music" autoplay loop>
+    <audio id="music" loop>
         <source src="musique.mp3" type="audio/mp3">
         Votre navigateur ne supporte pas l'audio.
     </audio>
@@ -34,12 +37,18 @@
         <div class="flower" onclick="smellFlower()"></div>
     </div>
 
-    <p id="message"> <img id="surprise" src="surprise.jpg" alt="Surprise d'amour"></p>
+    <p id="message"></p>
+     <img id="surprise" src="surprise.jpg" alt="Surprise d'amour">
 
     <script>
         let hasKey = false;
         let hasCode = false;
         let hasFlowerHint = false;
+
+        function playMusic() {
+            let music = document.getElementById("music");
+            music.play().catch(error => console.log("Lecture bloquée : " + error));
+        }
 
         function pickKey() {
             hasKey = true;
@@ -50,8 +59,6 @@
         function tryEscape() {
             if (hasKey) {
                 document.getElementById('message').textContent = "Bravo mon chat ! Tu as réussi à sortir et notre aventure continue ! ❤️";
-                
-                // Affiche l'image surprise
                 document.getElementById('surprise').style.display = "block";
             } else {
                 document.getElementById('message').textContent = "La porte est verrouillée... Trouve la clé de mon cœur !";
